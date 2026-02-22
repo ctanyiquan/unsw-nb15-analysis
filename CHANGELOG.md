@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - v0.1.0 Merge UNSW-NB15 datasets to create a CSV file which contains all network data with suitable column headers.
-- v0.2.0 Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories).
+- v0.2.0 Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories) of DataFrame.
 
 ### To Add
 
@@ -24,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories).
+- Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories) of DataFrame.
 
 ## 0.1.0 - 22/02/2026
 
