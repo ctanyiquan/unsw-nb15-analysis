@@ -20,6 +20,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
 
+## 0.2.2 - 01/03/2026
+
+### Changed
+
+- Recognise placeholders as missing values
+
 ## 0.2.1 - 23/02/2026
 
 ### Fixed
