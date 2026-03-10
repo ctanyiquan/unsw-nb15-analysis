@@ -21,9 +21,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
 
+## 0.3.2 - 10/03/2026
+
+### Changed
+
+- Set max column width for Pandas DataFrames
+
 ## 0.3.1 - 10/03/2026
 
-### Fixed
+### Changed
 
 - Include '-' as missing value in isna().
 
