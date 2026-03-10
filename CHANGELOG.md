@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
 
+## 0.3.1 - 10/03/2026
+
+### Fixed
+
+- Include '-' as missing value in isna().
+
 ## 0.3.0 - 03/03/2026
 
 ### Added
