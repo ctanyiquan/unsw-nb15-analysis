@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Save cleaned DataFrame to CSV file
+- Export cleaned DataFrame
 
 ## 0.3.2 - 10/03/2026
 
