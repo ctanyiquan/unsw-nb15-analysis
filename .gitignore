@@ -291,3 +291,6 @@ pyrightconfig.json
 ### Local Files ###
 # UNSW-NB15 datasets
 .data/
+
+# Claude Code context file
+CLAUDE.md
