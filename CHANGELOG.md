@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.2.0 Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories) of DataFrame.
 - v0.3.0 Drop redundant features, strip whitespace, handle missing values, remove duplicates and impossible records.
 - v0.4.0 Analyse class distributions, feature distributions, correlations (Kendall tau), and outliers (IQR-based) across all numeric features.
+- v0.4.1 Add cardinality analysis; reorder EDA sections to follow standard professional progression.
 
 ### To Add
 
@@ -20,6 +21,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Feature Engineering
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
+
+## 0.4.1 - 15/03/2026
+
+### Added
+
+- Cardinality analysis: unique value counts and percentages per feature, classified as Binary / Low / Medium / High to guide encoding decisions in feature engineering.
+
+### Changed
+
+- Reordered EDA sections to follow standard professional progression: class distributions → cardinality → feature distributions → outlier detection → correlation analysis.
 
 ## 0.4.0 - 15/03/2026
 
