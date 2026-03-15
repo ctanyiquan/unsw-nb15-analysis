@@ -17,7 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### To Add
 
-- Data Cleaning
 - Feature Engineering
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
