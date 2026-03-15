@@ -12,14 +12,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.1.0 Merge UNSW-NB15 datasets to create a CSV file which contains all network data with suitable column headers.
 - v0.2.0 Check the shape, feature names, dtypes, statistics, missing value counts, infinite value counts and class distribution (binary label + attack categories) of DataFrame.
 - v0.3.0 Drop redundant features, strip whitespace, handle missing values, remove duplicates and impossible records.
+- v0.4.0 Analyse class distributions, feature distributions, correlations (Kendall tau), and outliers (IQR-based) across all numeric features.
 
 ### To Add
 
 - Data Cleaning
-- Exploratory Data Analysis (EDA)
 - Feature Engineering
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
+
+## 0.4.0 - 15/03/2026
+
+### Added
+
+- Analyse class distributions: pie and bar chart for binary label; bar chart for attack categories.
+- Plot histograms for all 35 numeric features with a log y-axis to handle skewed distributions.
+- Compute Kendall tau correlation matrix; identify features with |τ| < 0.05 (weak predictors) and feature pairs with |τ| > 0.9 (redundant pairs).
+- Detect outliers using IQR bounds per feature; plot box plots for the top 12 most-outlier-affected features split by label.
 
 ## 0.3.3 - 10/03/2026
 
