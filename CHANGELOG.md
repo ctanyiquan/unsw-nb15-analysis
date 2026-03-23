@@ -14,12 +14,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.3.0 Drop redundant features, strip whitespace, handle missing values, remove duplicates and impossible records.
 - v0.4.0 Analyse class distributions, feature distributions, correlations (Kendall tau), and outliers (IQR-based) across all numeric features.
 - v0.4.1 Add cardinality analysis; reorder EDA sections to follow standard professional progression.
+- v0.5.0 Drop weak predictors (|τ| < 0.05) and redundant features (|τ| > 0.9 pairs), engineer 3 validated interaction features (2 dropped after Kendall τ validation), encode categorical features (frequency, one-hot, label encoding), log-transform skewed features, split and resample the training set with a tiered category floor, and standardise numeric features.
 
 ### To Add
-
-- Feature Engineering
 - Predictive Modelling and Model Evaluation
 - Data Visualisation (Confusion Matrix)
+
+## 0.5.0 - 23/03/2026
+
+### Added
+
+- Drop 13 weak predictors with |τ| < 0.05 with `Label`, as identified by Kendall tau correlation in EDA.
+- Drop 4 redundant features from high-correlation pairs (|τ| > 0.9): `ct_flw_http_mthd`, `dloss`, `Spkts`, `sttl`.
+- Frequency-encode `proto` (135 unique values) to avoid sparse one-hot expansion.
+- One-hot encode `state` (14 values) and `service` (13 values) with drop_first to avoid multicollinearity.
+- Label-encode multi-class target `attack_cat` with a stored category-to-integer mapping.
+- Apply log1p transformation to continuous features with |skew| > 1.
+- Split into 80/20 train/test sets stratified on `Label` before standardisation to prevent data leakage.
+- Engineer 5 candidate interaction features from raw numeric columns before encoding: `bytes_ratio` (traffic direction asymmetry), `total_bytes` (session volume), `bytes_per_dpkt` (payload size asymmetry), `tcp_setup_time` (TCP handshake duration), `loss_rate` (approximate packet drop ratio).
+- Validate each engineered feature via Kendall tau against two criteria: |τ| ≥ 0.05 with `Label` (predictive signal) and |τ| < 0.9 with all existing numeric features (non-redundancy); drop `loss_rate` (τ=0.0264, below signal threshold) and `tcp_setup_time` (τ=0.9066 with `synack`, redundant), retaining `bytes_ratio`, `total_bytes`, and `bytes_per_dpkt`.
+- Resample training set only: cap each attack category at 15,000 (undersample) and apply tiered oversampling floors (Worms: 1,000; Backdoor/Backdoors: 2,000; Shellcode: 3,000; Analysis: 4,000; all others: 5,000) to limit duplication ratios for rare categories; undersample normal traffic to a 3:1 normal:attack ratio.
+- Standardise continuous features using training-set mean and standard deviation, applied to both splits.
+- Export engineered splits to `data/engineered/train.csv` and `data/engineered/test.csv`.
 
 ## 0.4.1 - 15/03/2026
 
