@@ -15,10 +15,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.4.0 Analyse class distributions, feature distributions, correlations (Kendall tau), and outliers (IQR-based) across all numeric features.
 - v0.4.1 Add cardinality analysis; reorder EDA sections to follow standard professional progression.
 - v0.5.0 Drop weak predictors (|τ| < 0.05) and redundant features (|τ| > 0.9 pairs), engineer 3 validated interaction features (2 dropped after Kendall τ validation), encode categorical features (frequency, one-hot, label encoding), log-transform skewed features, split and resample the training set with a tiered category floor, and standardise numeric features.
+- v0.6.0 Train and evaluate four binary classifiers (Logistic Regression, Random Forest, XGBoost, MLP) with 5-fold stratified cross-validation; select a stacking ensemble of all four models as the final deployed model with threshold optimised to guarantee recall=1.00.
 
 ### To Add
-- Predictive Modelling and Model Evaluation
+- Multi-class attack category classification
 - Data Visualisation (Confusion Matrix)
+
+## 0.6.0 - 24/03/2026
+
+### Added
+
+- Train Logistic Regression, Random Forest, XGBoost, and MLP classifiers on the engineered training set with 5-fold stratified cross-validation; report per-fold scores and out-of-fold classification reports for each model.
+- Extract feature importances from Random Forest (mean decrease in impurity) and XGBoost (gain) after fitting on the full training set.
+- Evaluate all four models on the held-out test set at the default 0.5 threshold; compare precision, recall, F1, and ROC-AUC.
+- Optimise decision threshold for XGBoost by lowering to the minimum predicted attack probability, guaranteeing recall=1.00 at a small precision cost.
+- Tune XGBoost hyperparameters with a 30-iteration RandomizedSearchCV; confirm tuning does not improve precision at recall=1.00 over the baseline.
+- Build a stacking ensemble combining all four base models with a Logistic Regression meta-learner trained via the shared cross-validation fold strategy; select as final deployed model.
+- Generate SHAP values via TreeExplainer on the XGBoost component of the stacking ensemble; produce summary, dependence, and waterfall plots.
+- Generate LIME explanations for borderline and high-confidence samples.
+- Analyse model disagreements between Random Forest and XGBoost; scatter-plot predicted probabilities coloured by true label.
+- Compute bootstrap 95% confidence intervals (1,000 resamplings) for precision, recall, F1, and ROC-AUC of the final model.
+- Plot calibration curves and Expected Calibration Error for raw, isotonic-regression, and Platt-scaling variants.
+- Plot learning curves to assess bias-variance trade-off across training set sizes.
+- Generate partial dependence plots and individual conditional expectation plots for the top four features.
+- Benchmark inference speed across batch sizes 1–10,000; simulate live packet-by-packet detection.
+- Serialise the final stacking ensemble and optimised threshold to `models/stacking_binary.joblib` and `models/stacking_binary_threshold.txt`.
 
 ## 0.5.0 - 23/03/2026
 
