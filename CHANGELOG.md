@@ -21,6 +21,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Multi-class attack category classification
 - Data Visualisation (Confusion Matrix)
 
+## 0.6.1 - 24/03/2026
+
+### Fixed
+
+- Normalise duplicate `attack_cat` values `Backdoor` and `Backdoors` to a single `Backdoor` class in data cleaning (section 3.5), preventing the multi-class classifier from treating two functionally identical categories as separate targets.
+- Remove redundant `Backdoors` entry from the tiered resampling floor in feature engineering; update `ATTACK_CAT_MAPPING` in multi-class classifier notebook to reflect the 10-class (9 attack + Normal) encoding.
+
 ## 0.6.0 - 24/03/2026
 
 ### Added
@@ -54,7 +61,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Split into 80/20 train/test sets stratified on `Label` before standardisation to prevent data leakage.
 - Engineer 5 candidate interaction features from raw numeric columns before encoding: `bytes_ratio` (traffic direction asymmetry), `total_bytes` (session volume), `bytes_per_dpkt` (payload size asymmetry), `tcp_setup_time` (TCP handshake duration), `loss_rate` (approximate packet drop ratio).
 - Validate each engineered feature via Kendall tau against two criteria: |τ| ≥ 0.05 with `Label` (predictive signal) and |τ| < 0.9 with all existing numeric features (non-redundancy); drop `loss_rate` (τ=0.0264, below signal threshold) and `tcp_setup_time` (τ=0.9066 with `synack`, redundant), retaining `bytes_ratio`, `total_bytes`, and `bytes_per_dpkt`.
-- Resample training set only: cap each attack category at 15,000 (undersample) and apply tiered oversampling floors (Worms: 1,000; Backdoor/Backdoors: 2,000; Shellcode: 3,000; Analysis: 4,000; all others: 5,000) to limit duplication ratios for rare categories; undersample normal traffic to a 3:1 normal:attack ratio.
+- Resample training set only: cap each attack category at 15,000 (undersample) and apply tiered oversampling floors (Worms: 1,000; Backdoor: 2,000; Shellcode: 3,000; Analysis: 4,000; all others: 5,000) to limit duplication ratios for rare categories; undersample normal traffic to a 3:1 normal:attack ratio.
 - Standardise continuous features using training-set mean and standard deviation, applied to both splits.
 - Export engineered splits to `data/engineered/train.csv` and `data/engineered/test.csv`.
 
