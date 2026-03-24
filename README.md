@@ -31,7 +31,6 @@ unsw-nb15-analysis/
 │   ├── 05_feature_engineering.ipynb
 │   ├── 06_modelling_binary.ipynb
 │   └── 07_modelling_classifier.ipynb
-├── Assignment.ipynb          # Standalone notebook: complete pipeline in a single file
 ├── CHANGELOG.md
 ├── README.md
 └── requirements.txt
