@@ -16,10 +16,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - v0.4.1 Add cardinality analysis; reorder EDA sections to follow standard professional progression.
 - v0.5.0 Drop weak predictors (|τ| < 0.05) and redundant features (|τ| > 0.9 pairs), engineer 3 validated interaction features (2 dropped after Kendall τ validation), encode categorical features (frequency, one-hot, label encoding), log-transform skewed features, split and resample the training set with a tiered category floor, and standardise numeric features.
 - v0.6.0 Train and evaluate four binary classifiers (Logistic Regression, Random Forest, XGBoost, MLP) with 5-fold stratified cross-validation; select a stacking ensemble of all four models as the final deployed model with threshold optimised to guarantee recall=1.00.
+- v0.7.0 Train and evaluate four multi-class classifiers (Logistic Regression, Random Forest, XGBoost, MLP) on 9 attack categories with 5-fold stratified cross-validation; tune XGBoost via RandomizedSearchCV; select a stacking ensemble as the final deployed model; include SHAP, LIME, calibration, learning curves, PDP/ICE, inference benchmarking, and live detection simulation.
 
-### To Add
-- Multi-class attack category classification
-- Data Visualisation (Confusion Matrix)
+## 0.7.0 - 24/03/2026
+
+### Added
+
+- Train Logistic Regression, Random Forest, XGBoost, and MLP classifiers on attack-only records (9 categories, Normal excluded) with 5-fold stratified cross-validation; report per-fold scores and out-of-fold classification reports for each model.
+- Extract feature importances from Random Forest (mean decrease in impurity) and XGBoost (gain) after fitting on the full training set; compute permutation importances on the test set.
+- Evaluate all four models on the held-out test set; compare accuracy, macro F1, weighted F1, and per-category precision, recall, and F1.
+- Plot per-class ROC curves and Precision-Recall curves (one-vs-rest); compute macro and weighted average precision across all four base models.
+- Analyse cross-model disagreements between Random Forest and XGBoost across 17,678 test samples; break down disagreements by true attack category.
+- Tune XGBoost hyperparameters with a 30-iteration RandomizedSearchCV scored by macro F1; plot boosting round curve to identify optimal convergence point (round 256, cross-validation log-loss 0.5532), improving macro F1 from 0.6965 to 0.7394.
+- Build a stacking ensemble combining all four base models with a Logistic Regression meta-learner; evaluate on the test set and compute bootstrap 95% confidence intervals (1,000 resamplings) for accuracy, macro F1, and weighted F1.
+- Compute SHAP values via TreeExplainer on the XGBoost component of the stacking ensemble; produce summary and dependence plots focused on the Generic class.
+- Generate LIME explanations for an individual misclassified sample to illustrate per-feature local contributions.
+- Analyse misclassifications by true attack category; identify the most error-prone categories and common confusion patterns.
+- Plot calibration curves and Expected Calibration Error per attack category (one-vs-rest).
+- Plot learning curves to assess the bias-variance trade-off across training set sizes.
+- Generate partial dependence plots and individual conditional expectation plots for the top four XGBoost features targeting the Generic class.
+- Benchmark inference speed across batch sizes 1–10,000; simulate live sample-by-sample detection on 100 test records.
+- Serialise the stacking ensemble to `models/stacking_classifier.joblib` with round-trip verification.
 
 ## 0.6.1 - 24/03/2026
 
